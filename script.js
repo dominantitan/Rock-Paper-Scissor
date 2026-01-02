@@ -16,12 +16,27 @@ let computerScore = 0;
 
 function getHumanChoice(){
     const message = "Give your Choice 'R' for Rock , 'P' for Paper and 'S' for Scissors";
-    let hchoice = prompt(message,"R");
-    return hchoice;
+    let hChoice = prompt(message,"R");
+    return hChoice;
 }
 
 function getComputerChoice(){
-    
+    //start
+    //Get random number between 0 and 100
+    let randomNumber = Math.floor(Math.random()*100);
+    let cChoice = "R";
+    //if number is between 0 and 33  return Rock
+    if(randomNumber < 34){
+        cChoice = "R";
+    }else if(randomNumber < 67){
+    //if number is between 34 and 66 return Paper
+        cChoice = "P";
+    }else{
+    //if number is between 67 and 100 return Scissors
+        cChoice = "S";
+    }
+    return cChoice;
+    //end
 }
 
 const humanChoice = getHumanChoice();
