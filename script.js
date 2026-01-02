@@ -16,7 +16,15 @@ let computerScore = 0;
 
 function getHumanChoice(){
     const message = "Give your Choice 'R' for Rock , 'P' for Paper and 'S' for Scissors";
-    let hChoice = prompt(message,"R");
+    let input = prompt(message,"R");
+    let hChoice = input;
+    if(hChoice.toLowerCase() == "rock"){
+        hChoice = "R";
+    }else if(hChoice.toLowerCase() == "paper"){
+        hChoice = "P";
+    }else if(hChoice.toLowerCase() == "scissors"){
+        hChoice = "S";
+    }
     return hChoice;
 }
 
@@ -39,16 +47,76 @@ function getComputerChoice(){
     //end
 }
 
-const humanChoice = getHumanChoice();
-const computerChoice = getComputerChoice();
 
 function playRound(humanChoice,computerChoice){
+    //start
+    //IF humanChoice is Rock and computerChoice is Rock It's a draw
+    //IF humanChoice is Rock and computerChoice is Paper computer wins and increase computerScore
+    //IF humanChoice is Rock and computerChoice is Scissor human wins and increase humanScore
+    
+    //IF humanChoice is Paper and computerChoice is Rock human wins and increase humanScore
+    //IF humanChoice is Paper and computerChoice is Paper It's a draw
+    //IF humanChoice is Paper and computerChoice is Scissor computer wins and increase computerScore
+    
+    //IF humanChoice is Scissor and computerChoice is Rock computer wins and increase computerScore
+    //IF humanChoice is Scissor and computerChoice is Paper human wins and increase humanScore
+    //IF humanChoice is Scissor and computerChoice is Scissor It's draw
 
+    //end
+
+    let winMsg = "You win this round";
+    let loseMsg = "You lose this round";
+    let drawMsg = "It's a draw";
+
+    if(humanChoice == "R"){
+        if(computerChoice == "R"){
+            console.log(drawMsg);
+        }else if(computerChoice == "P"){
+            computerScore++;
+            console.log(loseMsg + ",paper beats rock");
+        }else if(computerChoice == "S"){
+            humanScore++;
+            console.log(winMsg + ",rock beats scissors");
+        }
+    }else if(humanChoice == "P"){
+        if(computerChoice == "R"){
+            humanScore++;
+            console.log(winMsg + ",paper beats rock");
+        }else if(computerChoice == "P"){
+            console.log(drawMsg);
+        }else if(computerChoice == "S"){
+            computerScore++;
+            console.log(loseMsg + ",scissors beats paper");
+        }
+    }else if(humanChoice == "S"){
+        if(computerChoice == "R"){
+            computerScore++;
+            console.log(loseMsg + ",rock beats scissors");
+        }else if(computerChoice == "P"){
+            humanScore++;
+            console.log(winMsg + ",scissors beat paper");
+        }else if(computerChoice == "S"){
+            console.log(drawMsg);
+        }
+    }
+    
 }
 
 function playGame(){
     for(let i = 0;i < 5;i++){
-        playRound();
+
+        const humanChoice = getHumanChoice();
+        const computerChoice = getComputerChoice();
+        playRound(humanChoice,computerChoice);
+        console.log("round " + i + ":" + humanChoice + "," + computerChoice);
+    }
+
+    if(humanScore > computerScore){
+        console.log("You win!!, you saved the world");
+    }else {
+        console.log("You lose!!, Now ai will takeover the world");
     }
 }
+
+playGame();
 
