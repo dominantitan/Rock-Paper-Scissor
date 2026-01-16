@@ -1,32 +1,10 @@
-/*start
-ask user for choice(with option scissor paper or rock)
-take the choice of computer
-compare the choice 
-declare the winner for that round
-give 1 point to winner for winning
-store the score of human and computer
-play 5 rounds
-declare the winner for the game
-end
 
-*/
+const div = document.querySelector("div");
 
 let humanScore = 0;
 let computerScore = 0;
 
-function getHumanChoice(){
-    const message = "Give your Choice 'R' for Rock , 'P' for Paper and 'S' for Scissors";
-    let input = prompt(message,"R");
-    let hChoice = input;
-    if(hChoice.toLowerCase() == "rock"){
-        hChoice = "R";
-    }else if(hChoice.toLowerCase() == "paper"){
-        hChoice = "P";
-    }else if(hChoice.toLowerCase() == "scissors"){
-        hChoice = "S";
-    }
-    return hChoice;
-}
+
 
 function getComputerChoice(){
     //start
@@ -49,21 +27,6 @@ function getComputerChoice(){
 
 
 function playRound(humanChoice,computerChoice){
-    //start
-    //IF humanChoice is Rock and computerChoice is Rock It's a draw
-    //IF humanChoice is Rock and computerChoice is Paper computer wins and increase computerScore
-    //IF humanChoice is Rock and computerChoice is Scissor human wins and increase humanScore
-    
-    //IF humanChoice is Paper and computerChoice is Rock human wins and increase humanScore
-    //IF humanChoice is Paper and computerChoice is Paper It's a draw
-    //IF humanChoice is Paper and computerChoice is Scissor computer wins and increase computerScore
-    
-    //IF humanChoice is Scissor and computerChoice is Rock computer wins and increase computerScore
-    //IF humanChoice is Scissor and computerChoice is Paper human wins and increase humanScore
-    //IF humanChoice is Scissor and computerChoice is Scissor It's draw
-
-    //end
-
     let winMsg = "You win this round";
     let loseMsg = "You lose this round";
     let drawMsg = "It's a draw";
@@ -102,21 +65,29 @@ function playRound(humanChoice,computerChoice){
     
 }
 
-function playGame(){
-    for(let i = 0;i < 5;i++){
 
-        const humanChoice = getHumanChoice();
-        const computerChoice = getComputerChoice();
-        playRound(humanChoice,computerChoice);
-        console.log("round " + i + ":" + humanChoice + "," + computerChoice);
-    }
 
-    if(humanScore > computerScore){
-        console.log("You win!!, you saved the world");
-    }else {
-        console.log("You lose!!, Now ai will takeover the world");
+const buttons = document.querySelectorAll("button");
+
+buttons.forEach((button) => {
+    let computerChoice = getComputerChoice();
+    if(button.id === "rock"){
+        const humanChoice = "R";
+        buttonAction(button,humanChoice,computerChoice);
+    }else if(button.id === "scissors"){
+        const humanChoice = "S";
+        buttonAction(button,humanChoice,computerChoice);
+    }else if(button.id === "paper"){
+        const humanChoice = "P";        buttonAction(button,humanChoice,computerChoice);
     }
+})
+
+function buttonAction(button,humanChoice,computerChoice){
+    button.addEventListener('click',() => {
+            playRound(humanChoice,computerChoice);
+            computerChoice = getComputerChoice();
+        });
 }
 
-playGame();
+
 
